@@ -4,7 +4,6 @@ username: {
     type: String,
     required: [true, 'Please provide a username'],
     unique: [true, 'Username already exists'],
-    trim: true,
 },
 email: {
     type: String,
@@ -34,6 +33,6 @@ verifyTokenExpiry: Date
 },{timestamps: true});
 
 
-const User = mongoose.models.users || mongoose.model('users', userSchema); // if the model is already created, use it, else create a new one
+const User = mongoose.models.users || mongoose.model('User', userSchema); // if the model is already created, use it, else create a new one
 
 export default User;

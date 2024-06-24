@@ -3,7 +3,7 @@ import mongoose, { connection } from 'mongoose';
 export async function connect (){
     try {
         
-        await mongoose.connect(process.env.MONGO_URI || '')
+        await mongoose.connect(`${process.env.MONGODB_URI}/nextjs` || '')
         const connectionReference = mongoose.connection;
 
         connectionReference.on('connected', ()=> {

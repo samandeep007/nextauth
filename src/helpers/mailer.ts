@@ -5,11 +5,11 @@ import nodemailer from 'nodemailer'
 export const sendEmail = async ({email, emailType, userId}:{email: string, emailType: string, userId: string}) => {
     try {
 
-      const hashedToken = await bcryptjs.hash(userId.toString(), 10)
+      const hashedToken = await bcryptjs.hash(userId, 10)
       //You can use UUID package here as well
 
         if(emailType === "VERIFY"){
-          await User.findByIdAndUpdate(userId, {
+          await User.findOneAndUpdate({userId}, {
             $set: {
               verifyToken: hashedToken,
               verifyTokenExpiry: Date.now() + 3600000
@@ -28,8 +28,8 @@ export const sendEmail = async ({email, emailType, userId}:{email: string, email
 
 
         const transporter = nodemailer.createTransport({
-          host: "sandbox.smtp.mailtrap.io",
-          port: 2525,
+          host: "live.smtp.mailtrap.io",
+          port: 587,
           auth: {
             user: process.env.MAILTRAP_USERNAME, // For testing purposes
             pass: process.env.MAILTRAP_PASSWORD
@@ -37,7 +37,7 @@ export const sendEmail = async ({email, emailType, userId}:{email: string, email
         });
 
           const mailOptions = {
-            from: 'samandeep@singh.com',
+            from: 'samandeep@demomailtrap.com',
             to: email, 
             subject: emailType === 'VERIFY' ? "Verify your email" : "Reset your password",
             html: `<div style="background-color: rgb(245, 245, 245); width: 100%; margin: 0; padding: 0; height: auto">
@@ -55,6 +55,7 @@ export const sendEmail = async ({email, emailType, userId}:{email: string, email
           return mailResponse
 
     } catch (error:any) {
-        throw new Error(error.message);
+         throw new Error(error.message);
+      
     }
 }
