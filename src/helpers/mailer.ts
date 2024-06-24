@@ -9,7 +9,7 @@ export const sendEmail = async ({email, emailType, userId}:{email: string, email
       //You can use UUID package here as well
 
         if(emailType === "VERIFY"){
-          await User.findOneAndUpdate({userId}, {
+          await User.findOneAndUpdate({username: userId}, {
             $set: {
               verifyToken: hashedToken,
               verifyTokenExpiry: Date.now() + 3600000
@@ -18,7 +18,7 @@ export const sendEmail = async ({email, emailType, userId}:{email: string, email
         }
 
         else if(emailType === "RESET"){
-          await User.findByIdAndUpdate(userId, {
+          await User.findOneAndUpdate({username: userId}, {
             $set: {
               forgotPasswordToken: hashedToken,
               forgotPasswordTokenExpiry: Date.now() + 3600000

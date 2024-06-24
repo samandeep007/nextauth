@@ -7,9 +7,9 @@ connect()
 export const POST = async(request: NextRequest) => {
     try {
         const reqBody = await request.json();
-        const incomingToken = reqBody.token;
+        const {token} = reqBody;
         
-        const user = await User.findOne({verifyToken: incomingToken, verifyTokenExpiry: {$gt: Date.now()}})
+        const user = await User.findOne({verifyToken: token, verifyTokenExpiry: {$gt: Date.now()}})
 
         if(!user){
             return NextResponse.json({
