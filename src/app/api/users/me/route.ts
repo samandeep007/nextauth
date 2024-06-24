@@ -10,9 +10,7 @@ export const GET = async (request: NextRequest) => {
 
         const decodedToken = await getDataFromToken(request);
 
-        const userId = await User.findById(decodedToken);
-
-        const user = await User.findById(userId).select("-password");
+        const user = await User.findById(decodedToken).select("-password");
 
         if(!user){
             return NextResponse.json({
@@ -21,7 +19,6 @@ export const GET = async (request: NextRequest) => {
                     success: false
             })
         }
-    
 
         return NextResponse.json({
             status: 200,
