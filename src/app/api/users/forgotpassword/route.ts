@@ -29,6 +29,12 @@ export const POST = async(request:NextRequest)=>{
         }
 
         await sendEmail({email: user.email, emailType:"RESET", userId: username});
+
+        return NextResponse.json({
+            status: 200,
+            message: "Password reset mail sent successfully",
+            success: true
+        })
         
     } catch (error:any) {
         return NextResponse.json({error: error.message}, {status: 500})
