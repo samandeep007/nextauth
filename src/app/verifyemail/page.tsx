@@ -23,7 +23,7 @@ export default function verifyEmailPage() {
         //const {query} = router;
         //const urlToken = query.token
 
-    }, [])
+    })
 
     useEffect(()=>{
         setError(false)
