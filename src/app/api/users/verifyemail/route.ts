@@ -8,7 +8,7 @@ export const POST = async(request: NextRequest) => {
     try {
         const reqBody = await request.json();
         const {token} = reqBody;
-        
+
         const user = await User.findOne({verifyToken: token, verifyTokenExpiry: {$gt: Date.now()}})
 
         if(!user){
