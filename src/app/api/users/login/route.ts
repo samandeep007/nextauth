@@ -8,6 +8,8 @@ connect()
 
 export const POST = async (request: NextRequest) => {
     try {
+
+     
         const reqBody = await request.json()
         const {email, password} = reqBody;
         
@@ -39,6 +41,8 @@ export const POST = async (request: NextRequest) => {
         }
 
         const token = await jwt.sign(tokenData, process.env.TOKEN_SECRET!, {expiresIn: '1d'});
+
+       
 
         const response = NextResponse.json({
             status: 200,

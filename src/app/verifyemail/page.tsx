@@ -8,7 +8,6 @@ import Link from 'next/link';
 
 export default function verifyEmailPage() {
 
-    const router = useRouter();
     
     const[token, setToken] = useState("");
     const[verified, setVerified] = useState(false);
